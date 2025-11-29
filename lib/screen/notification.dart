@@ -17,6 +17,21 @@ class _NotificationState extends State<Notification> {
     //FCM token
     String? token = await messaging.getToken();
     print("FCM Token : $token");
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      String title = message.notification?.title ?? "N/A";
+      String body = message.notification?.body ?? "N/A";
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(title),
+          content: Text(
+            body,
+            maxLines: 1,
+            style: TextStyle(overflow: TextOverflow.ellipsis),
+          ),
+        ),
+      );
+    });
   }
 
   @override
