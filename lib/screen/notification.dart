@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
- class Notification extends StatefulWidget {
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+class Notification extends StatefulWidget {
   const Notification({super.key});
 
   @override
@@ -8,9 +10,10 @@ import 'package:firebase_core/firebase_core.dart';
 }
 
 class _NotificationState extends State<Notification> {
-  void  firebasemessaging() async{
- 
+  void firebasemessaging() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold();
