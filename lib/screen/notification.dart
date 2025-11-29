@@ -11,7 +11,12 @@ class Notification extends StatefulWidget {
 
 class _NotificationState extends State<Notification> {
   void firebasemessaging() async {
+    //initializedd firebase messaging
+    //getting the instance so later we can use the services inside firebase messaging
     FirebaseMessaging messaging = FirebaseMessaging.instance;
+    //FCM token
+    String? token = await messaging.getToken();
+    print("FCM Token : $token");
   }
 
   @override
