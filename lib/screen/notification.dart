@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:notiapp/screen/notification_detail_screen.dart';
 
-class Notification extends StatefulWidget {
-  const Notification({super.key});
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
 
   @override
-  State<Notification> createState() => _NotificationState();
+  State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationState extends State<Notification> {
+class _NotificationScreenState extends State<NotificationScreen> {
   void firebasemessaging() async {
     //initializedd firebase messaging
     //getting the instance so later we can use the services inside firebase messaging
@@ -57,7 +57,7 @@ class _NotificationState extends State<Notification> {
       );
     });
     //when app is not closed but is in the background
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       final title = message.notification?.title ?? "N/A";
       final body = message.notification?.body ?? "N/A";
       Navigator.push(
@@ -68,10 +68,43 @@ class _NotificationState extends State<Notification> {
         ),
       );
     });
+
+    //when app is closed
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        final title = message.notification?.title ?? "N/A";
+        final body = message.notification?.body ?? "N/A";
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                NotificationDetailScreen(body: body, title: title),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //call the function here
+    firebasemessaging();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.purpleAccent,
+      appBar: AppBar(
+        backgroundColor: Colors.purpleAccent,
+        foregroundColor: Colors.white,
+        title: Text(
+          "Push Notifications",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        centerTitle: true,
+      ),
+    );
   }
 }
