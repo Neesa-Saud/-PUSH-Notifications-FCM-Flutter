@@ -27,7 +27,7 @@ class _NotificationState extends State<Notification> {
           content: Text(
             body,
             maxLines: 1,
-            style: TextStyle(overflow: TextOverflow.ellipsis),
+            style: TextStyle(overflow: TextOverflow.ellipsis), //if test exceeds then it put .....
           ),
         ),
       );
