@@ -18,6 +18,7 @@ class _NotificationState extends State<Notification> {
     //FCM token
     String? token = await messaging.getToken();
     print("FCM Token : $token");
+    //When app is open
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       String title = message.notification?.title ?? "N/A";
       String body = message.notification?.body ?? "N/A";
@@ -52,6 +53,18 @@ class _NotificationState extends State<Notification> {
               child: Text("Cancel"),
             ),
           ],
+        ),
+      );
+    });
+    //when app is not closed but is in the background
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      final title = message.notification?.title ?? "N/A";
+      final body = message.notification?.body ?? "N/A";
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              NotificationDetailScreen(body: body, title: title),
         ),
       );
     });
