@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:notiapp/screen/notification_detail_screen.dart';
 
 class Notification extends StatefulWidget {
   const Notification({super.key});
@@ -27,8 +28,30 @@ class _NotificationState extends State<Notification> {
           content: Text(
             body,
             maxLines: 1,
-            style: TextStyle(overflow: TextOverflow.ellipsis), //if test exceeds then it put .....
+            style: TextStyle(
+              overflow: TextOverflow.ellipsis,
+            ), //if test exceeds then it put .....
           ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        NotificationDetailScreen(body: body, title: title),
+                  ),
+                );
+              },
+              child: Text("Next"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Cancel"),
+            ),
+          ],
         ),
       );
     });
