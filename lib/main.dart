@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:notiapp/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:notiapp/screen/notification.dart';
+import 'package:notiapp/screen/notification.dart'; //importing package for fcm
 
 Future<void> _backgroundMessaging(
   RemoteMessage message,
