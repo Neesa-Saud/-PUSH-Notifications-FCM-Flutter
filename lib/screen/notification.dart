@@ -36,6 +36,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           actions: [
             TextButton(
               onPressed: () {
+                Navigator.pop(context); //close the dialog box
                 Navigator.push(
                   context,
                   MaterialPageRoute(
